@@ -1,0 +1,11 @@
+openAPI:
+  serviceKey: SjK%2BeUJ10mCtIhPiTCs8gxTugbmIwnX03Lv%2BI5Y3Hq4horreyZaKM3b5dFCcpF%2BmDuyvdsJQbLSp24CvubSD1A%3D%3D
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/location
+    username: postgres
+    password: 1234
+  mybatis:
+    configuration:
+      map-underscore-to-camel-case: true
