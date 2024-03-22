@@ -16,7 +16,7 @@ public class ScheduledAnnouncement {
 
     public ScheduledAnnouncement(){
         if(LocalTime.now().getMinute()<45){
-            announcementTime = (LocalTime.now().minusHours(1)) +"30";   //minusHours -> 한시간 뒤
+            announcementTime = (LocalTime.now().minusHours(1)).getHour() +"30";   //minusHours -> 한시간 뒤
         }else if(LocalTime.now().getHour()==0) {
             announcementTime="0030";
         }else{

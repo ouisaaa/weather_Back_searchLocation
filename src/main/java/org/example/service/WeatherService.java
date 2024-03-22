@@ -9,7 +9,10 @@ import org.example.openAPI.openAPIRequest;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @RequiredArgsConstructor
 @Service
@@ -26,8 +29,14 @@ public class WeatherService {
     }
     public JSONObject httpResultJSON(LocationDao location){
         APIResult apiResult =openAPIRequest.openAPIRequestHttp(location.getNx(), location.getNy());
-
         return apiResult.plusJson(apiResult.calculateWindChill());
     }
+    public TreeSet<String> searchDistrict(String city){
+        TreeSet<String> districtList = new TreeSet<>(locationMapper.findToDistrict(city)); //중복제거와 정렬을 위해 TreeSet 사용
 
+        return districtList;
+    }
+    public List<String> searchNeighborhood(String district){
+        return locationMapper.findToNeighborhood(district);
+    }
 }
