@@ -28,7 +28,7 @@ public class WeatherService {
 //        openAPIRequest.openAPIRequestHttp(findLocation.getNx(), findLocation.getNy());
     }
     public JSONObject httpResultJSON(LocationDao location){
-        APIResult apiResult =openAPIRequest.openAPIRequestHttp(location.getNx(), location.getNy());
+        APIResult apiResult =openAPIRequest.SrtNcst(location.getNx(), location.getNy());
         return apiResult.plusJson(apiResult.calculateWindChill());
     }
     public TreeSet<String> searchDistrict(String city){
@@ -39,4 +39,5 @@ public class WeatherService {
     public List<String> searchNeighborhood(String district){
         return locationMapper.findToNeighborhood(district);
     }
+
 }

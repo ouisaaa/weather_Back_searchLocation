@@ -11,8 +11,6 @@ public class OpenAPIComponent {
     private String serviceKey;
     @Value("${openAPI.dataType}")
     private String dataType;
-    @Value("${openAPI.numOfRows}")
-    private String numOfRows;
 
 
     public String getLink(){ return link; }
@@ -20,5 +18,4 @@ public class OpenAPIComponent {
         return serviceKey;
     }
     public String getDataType(){return dataType;}
-    public String getNumOfRows(){return numOfRows;}
 }

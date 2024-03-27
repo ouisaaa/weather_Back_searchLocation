@@ -27,10 +27,9 @@ public class APIResult {
 
     //체감온도 구하는 메소드
     public JSONObject calculateWindChill(){
-        final int T1H_start_index = 24;     //온도 부분 시작 index
-        final int REH_start_index = 30;     //습도 부분 시작 index
-        final int WSD_start_index = 54;     //풍속 부분 시작 index
-        final int Forecast_Count = 6;       //예보 개수 -> 초단기예보는 6시간 이내의 예보를 한다.
+        final int T1H_start_index = 3;     //온도 부분 시작 index
+        final int REH_start_index = 2;     //습도 부분 시작 index
+        final int WSD_start_index = 7;     //풍속 부분 시작 index
 
         JSONArray itemArray = json.getJSONObject("response")
                 .getJSONObject("body")
@@ -40,7 +39,6 @@ public class APIResult {
         int nowMonth= Integer.valueOf(String.valueOf(LocalDate.now().getMonthValue()));
 
         JSONArray windChillList = new JSONArray();
-        JSONObject windChill = new JSONObject();
 
         /**
          *
@@ -48,19 +46,20 @@ public class APIResult {
          * 10~익년4월: 겨울철 체감온도(단, 기온 10°C 이하, 풍속 1.3 m/s 이상일때만)
          *
          * */
-        for(int i=0;i<Forecast_Count;i++){
-            if(nowMonth > 4 && nowMonth < 10 || (itemArray.getJSONObject(T1H_start_index + i).getDouble("fcstValue") > 10.0 &&
-                    itemArray.getJSONObject(WSD_start_index + i).getDouble("fcstValue") < 1.3)){
-                windChill.put("fcstTime",itemArray.getJSONObject(T1H_start_index+i).getString("fcstTime"));
-                windChill.put("fcstValue", getInSummer(itemArray.getJSONObject(T1H_start_index+i).getDouble("fcstValue")
-                        ,itemArray.getJSONObject(REH_start_index+i).getDouble("fcstValue")));
+            JSONObject windChill = new JSONObject();
+            if(nowMonth > 4 && nowMonth < 10 || (itemArray.getJSONObject(T1H_start_index).getDouble("obsrValue") > 10.0 &&
+                    itemArray.getJSONObject(WSD_start_index).getDouble("obsrValue") < 1.3)){
+                windChill.put("baseTime",itemArray.getJSONObject(T1H_start_index).getString("baseTime"));
+                windChill.put("obsrValue", getInSummer(itemArray.getJSONObject(T1H_start_index).getDouble("obsrValue")
+                        ,itemArray.getJSONObject(REH_start_index).getDouble("obsrValue")));
+
             }else{
-                windChill.put("fcstTime",itemArray.getJSONObject(T1H_start_index+i).getString("fcstTime"));
-                windChill.put("fcstValue", getInWinter(itemArray.getJSONObject(T1H_start_index+i).getDouble("fcstValue")
-                        ,itemArray.getJSONObject(WSD_start_index+i).getDouble("fcstValue")));
+                windChill.put("baseTime",itemArray.getJSONObject(T1H_start_index).getString("baseTime"));
+                windChill.put("obsrValue", getInWinter(itemArray.getJSONObject(T1H_start_index).getDouble("obsrValue")
+                        ,itemArray.getJSONObject(WSD_start_index).getDouble("obsrValue")));
             }
             windChillList.put(windChill);
-        }
+
 
         JSONObject resultWindChill = new JSONObject();
         resultWindChill.put("windChill", windChillList);

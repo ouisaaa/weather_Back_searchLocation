@@ -28,7 +28,7 @@ public class WeatherController {
     @GetMapping("/getWeather")
     public ResponseEntity<String> testGet2(@RequestParam String city, @RequestParam String district, @RequestParam String neighborhood){
 //        System.out.println(weatherService.httpResultJSON(weatherService.searchLocation(city, district, neighborhood)));
-        log.info("주소: \""+city+" "+district+" "+neighborhood+" \" 의 초단기예보 조회 요청");
+        log.info("주소: \""+city+" "+district+" "+neighborhood+" \" 의 초단기실황 조회 요청");
 
         return ResponseEntity.ok().body(weatherService.httpResultJSON(weatherService.searchLocation(city, district, neighborhood)).toString());
     }
