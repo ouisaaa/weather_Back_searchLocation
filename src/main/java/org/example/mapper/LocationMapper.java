@@ -10,10 +10,6 @@ import java.util.List;
 
 @Mapper
 public interface LocationMapper {
-    @Select("select location.nx,location.ny from location.location")
-    List<LocationDao> tester();
-    @Select("select nx,ny from location.location where city=#{city} and district=#{district} and neighborhood=#{neighborhood}")
-    LocationDao find(@Param("city") String city,@Param("district") String district,@Param("neighborhood") String neighborhood );
 
     @Select("select district from location.location where city=#{city} order by district ASC;")
     List<String> findToDistrict(@Param("city") String city);
