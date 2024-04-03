@@ -23,10 +23,10 @@ public class WeatherController {
         return ResponseEntity.ok().body(weatherService.searchDistrict(city).toString());
     }
     @GetMapping("/neighborhoodList")
-    public ResponseEntity<List<String>> getNeighborhoodList(@RequestParam String district){
+    public ResponseEntity<String> getNeighborhoodList(@RequestParam String district){
         log.info("동/읍/리 찾기 요청");
 
-        return ResponseEntity.ok().body(weatherService.searchNeighborhood(district));
+        return ResponseEntity.ok().body(weatherService.searchNeighborhood(district).toString());
     }
 
 }
